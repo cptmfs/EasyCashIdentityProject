@@ -21,4 +21,10 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EasyCashIdentityProject.Business\EasyCashIdentityProject.Business.csproj" />
+    <ProjectReference Include="..\EasyCashIdentityProject.DataAccess\EasyCashIdentityProject.DataAccess.csproj" />
+    <ProjectReference Include="..\EasyCashIdentityProject.Entity\EasyCashIdentityProject.Entity.csproj" />
+  </ItemGroup>
+
 </Project>
