@@ -1,8 +1,9 @@
 ﻿using EasyCashIdentityProject.DTO.Dtos.AppUserDtos;
 using EasyCashIdentityProject.Entity.Concrete;
+using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-
+using MimeKit;
 namespace EasyCashIdentityProject.MvcWebUI.Controllers
 {
     public class RegisterController : Controller
@@ -13,7 +14,6 @@ namespace EasyCashIdentityProject.MvcWebUI.Controllers
         {
             _userManager = userManager;
         }
-
         [HttpGet]
         public IActionResult Index()
         {
@@ -42,6 +42,25 @@ namespace EasyCashIdentityProject.MvcWebUI.Controllers
 
                 if (result.Succeeded)
                 {
+                    MimeMessage mimeMessage = new MimeMessage();
+                    MailboxAddress mailboxAddressFrom = new MailboxAddress("Easy Cash Admin", "cptmfs1@gmail.com");
+                    MailboxAddress mailboxAddressTo = new MailboxAddress("User",appUser.Email);
+
+                    mimeMessage.From.Add(mailboxAddressFrom);
+                    mimeMessage.To.Add(mailboxAddressTo);
+
+                    var bodyBuilder= new BodyBuilder();
+                    bodyBuilder.TextBody = "Kayıt işlemini gerçekleştirmek için onay kodunuz : " + code;
+                    mimeMessage.Body = bodyBuilder.ToMessageBody();
+
+                    mimeMessage.Subject = "Easy Cash Onay Kodu";
+
+                    SmtpClient client= new SmtpClient();
+                    client.Connect("smtp.gmail.com", 587, false);
+                    client.Authenticate("cptmfs1@gmail.com", "qiasiwkmdnqqlyuh");
+                    client.Send(mimeMessage);
+                    client.Disconnect(true);
+
                     return RedirectToAction("Index", "ConfirmMail");
                 }
                 else
@@ -49,7 +68,6 @@ namespace EasyCashIdentityProject.MvcWebUI.Controllers
                     foreach (var item in result.Errors)
                     {
                         ModelState.AddModelError("", item.Description);
-
 					}
 				}
             }
