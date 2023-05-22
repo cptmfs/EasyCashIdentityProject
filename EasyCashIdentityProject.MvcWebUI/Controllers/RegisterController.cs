@@ -61,6 +61,9 @@ namespace EasyCashIdentityProject.MvcWebUI.Controllers
                     client.Send(mimeMessage);
                     client.Disconnect(true);
 
+                    TempData["Mail"] = appUserRegisterDto.EMail;
+
+
                     return RedirectToAction("Index", "ConfirmMail");
                 }
                 else
