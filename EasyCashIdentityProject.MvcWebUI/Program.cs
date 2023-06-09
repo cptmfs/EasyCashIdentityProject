@@ -1,4 +1,8 @@
+using EasyCashIdentityProject.Business.Abstract;
+using EasyCashIdentityProject.Business.Concrete;
+using EasyCashIdentityProject.DataAccess.Abstract;
 using EasyCashIdentityProject.DataAccess.Concrete;
+using EasyCashIdentityProject.DataAccess.EntityFramework;
 using EasyCashIdentityProject.Entity.Concrete;
 using EasyCashIdentityProject.MvcWebUI.Models;
 
@@ -8,6 +12,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<Context>();
 builder.Services.AddIdentity<AppUser,AppRole>().AddEntityFrameworkStores<Context>().AddErrorDescriber<CustomerIdentityValidator>();
+
+builder.Services.AddScoped<ICustomerAccountProcessDal, EfCustomerAccountProcessDal>();
+builder.Services.AddScoped<ICustomerAccountProcessService, CustomerAccountProcessManager>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
