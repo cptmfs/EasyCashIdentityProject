@@ -17,6 +17,11 @@ namespace EasyCashIdentityProject.Business.Concrete
             _customerAccountDal = customerAccountDal;
         }
 
+        public List<CustomerAccount> GetCustomerAccountsListService(int id)
+        {
+            return _customerAccountDal.GetCustomerAccountsList(id);
+        }
+
         public void TDelete(CustomerAccount t)
         {
             _customerAccountDal.Delete(t);

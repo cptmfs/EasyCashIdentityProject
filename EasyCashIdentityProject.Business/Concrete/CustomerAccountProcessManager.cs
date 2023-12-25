@@ -18,6 +18,11 @@ namespace EasyCashIdentityProject.Business.Concrete
             _customerAccountProcessDal = customerAccountProcessDal;
         }
 
+        public List<CustomerAccountProcess> MyLastProcessService(int id)
+        {
+            return _customerAccountProcessDal.MyLastProcess(id);
+        }
+
         public void TDelete(CustomerAccountProcess t)
         {
             _customerAccountProcessDal.Delete(t);

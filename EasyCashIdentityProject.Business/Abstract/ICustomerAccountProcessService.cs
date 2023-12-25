@@ -9,5 +9,7 @@ namespace EasyCashIdentityProject.Business.Abstract
 {
     public interface ICustomerAccountProcessService:IGenericService<CustomerAccountProcess>
     {
+        List<CustomerAccountProcess> MyLastProcessService(int id);
+
     }
 }

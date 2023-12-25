@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,8 @@ namespace EasyCashIdentityProject.DTO.Dtos.AppUserDtos
 {
     public class AppUserEditDto
     {
+        [Required]
+        [StringLength(50 ,ErrorMessage ="asdasdas")]
         public string Name { get; set; }
         public string Surname { get; set; }
         public string District { get; set; }
